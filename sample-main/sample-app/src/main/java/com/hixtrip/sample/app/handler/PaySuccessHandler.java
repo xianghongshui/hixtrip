@@ -4,10 +4,7 @@ import com.hixtrip.sample.common.pay.model.PayStatus;
 import com.hixtrip.sample.domain.order.OrderDomainService;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 import static com.hixtrip.sample.common.pay.model.PayStatus.TRADE_SUCCESS;
 
@@ -18,7 +15,7 @@ import static com.hixtrip.sample.common.pay.model.PayStatus.TRADE_SUCCESS;
  */
 @Component
 @RequiredArgsConstructor
-public class PaySuccessHandler implements PayCallbackHandler{
+public class PaySuccessHandler implements PayCallbackHandler {
 
 
     private final OrderDomainService orderDomainService;
@@ -29,8 +26,8 @@ public class PaySuccessHandler implements PayCallbackHandler{
     }
 
     @Override
-    public void payCallback(CommandPay commandPay) {
-        orderDomainService.orderPaySuccess(commandPay);
+    public String payCallback(CommandPay commandPay) {
+        return orderDomainService.orderPaySuccess(commandPay);
     }
 
 }

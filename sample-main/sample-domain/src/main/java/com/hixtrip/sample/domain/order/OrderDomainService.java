@@ -54,7 +54,7 @@ public class OrderDomainService {
         }
     }
 
-    public void orderPaySuccess(CommandPay commandPay) {
+    public String orderPaySuccess(CommandPay commandPay) {
         String orderId = commandPay.getOrderId();
         PayOrder payOrder = orderRepository.selectById(orderId);
         String orderJson = payOrder.getExpandJson();
@@ -76,9 +76,10 @@ public class OrderDomainService {
             // 将预支付订单创建新建订单和订单详情
             orderRepository.saveOrderAndDetail(payOrder);
         }
+        return "pay callBack success";
     }
 
-    public void orderPayFail(CommandPay commandPay) {
+    public String orderPayFail(CommandPay commandPay) {
         String orderId = commandPay.getOrderId();
         PayOrder payOrder = orderRepository.selectById(orderId);
         String orderJson = payOrder.getExpandJson();
@@ -97,6 +98,6 @@ public class OrderDomainService {
                     withholdingQuantity + order.getAmount().longValue(),
                     order.getAmount().longValue());
         }
+        return "pay callBack success";
     }
-
 }

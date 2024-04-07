@@ -19,5 +19,5 @@ public interface PayCallbackHandler {
      * @param orderId {@link String 订单id}
      * @param payStatus {@link String 支付状态}
      */
-    void payCallback(CommandPay commandPay);
+    String payCallback(CommandPay commandPay);
 }

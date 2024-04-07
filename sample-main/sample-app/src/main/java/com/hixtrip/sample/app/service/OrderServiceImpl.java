@@ -149,8 +149,7 @@ public class OrderServiceImpl implements OrderService {
         PayStatusResponse payStatusResponse = payService.queryPayOrderStatus(dto.getOrderId());
         PayCallbackHandler handler = payCallbackHandlerFactory.getHandler(payStatusResponse.getPayStatus());
         log.debug("支付状态回调查询:{}", JSON.toJSONString(payStatusResponse));
-        handler.payCallback(commandPay);
-        return null;
+        return handler.payCallback(commandPay);
     }
 
 

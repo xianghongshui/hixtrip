@@ -28,7 +28,7 @@ public class PayFailHandler implements PayCallbackHandler{
     }
 
     @Override
-    public void payCallback(CommandPay commandPay) {
-        orderDomainService.orderPayFail(commandPay);
+    public String payCallback(CommandPay commandPay) {
+        return orderDomainService.orderPayFail(commandPay);
     }
 }
