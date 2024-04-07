@@ -27,6 +27,7 @@ CREATE TABLE `order_detail`  (
   `id` bigint NOT NULL COMMENT '订单明细id',
   `order_id` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '订单id',
   `user_id` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '用户id',
+  `sku_id` varchar(80)  CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品id',
   `price` int NOT NULL COMMENT '价格',
   `name` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
   `cover_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '封面地址',
@@ -44,13 +45,6 @@ CREATE TABLE `order_detail`  (
   INDEX `idx_order`(`order_id` ASC) USING BTREE,
   INDEX `idx_pay_channel`(`pay_channel` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单明细' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of order_detail
--- ----------------------------
-INSERT INTO `order_detail` VALUES (1776529869937582082, '1776518148137172994', '1559000', 20000, '1', '', 0, 20000, 2, NULL, 0, 'wxPay', '2024-04-06 15:51:47', '2024-04-06 16:39:06', '1559000', '1559000');
-INSERT INTO `order_detail` VALUES (1776538269006233601, '1776538239293784066', '155800005897', 20000, '1', '', 0, 20000, 2, NULL, 0, 'wxPay', '2024-04-06 17:11:37', '2024-04-06 17:11:37', '155800005897', '155800005897');
-INSERT INTO `order_detail` VALUES (1776538899686993921, '1776538872709230594', '155800005897', 20000, '1', '', 0, 20000, 2, NULL, 0, 'wxPay', '2024-04-06 17:14:08', '2024-04-06 17:14:08', '155800005897', '155800005897');
 
 -- ----------------------------
 -- Table structure for pay_order
@@ -168,11 +162,5 @@ CREATE TABLE `tb_order`  (
   INDEX `idx_create_time`(`create_time` ASC) USING BTREE,
   INDEX `idx_user_id_create_time`(`user_id` ASC, `create_time` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of tb_order
--- ----------------------------
-INSERT INTO `tb_order` VALUES ('1776538239293784066', '155800005897', '', '1776538239293784066', '1776538239293784066', 1776538239293784066, 3, '', 20000, 20000, 0, 'wxPay', 0, '2024-04-06 17:11:37', '2024-04-06 17:11:44', NULL, '2024-05-06 17:11:44', NULL, '2024-04-06 17:11:44', '155800005897', '155800005897', 0);
-INSERT INTO `tb_order` VALUES ('1776538872709230594', '155800005897', '', '1776538872709230594', '1776538872709230594', 1776538872709230594, 3, '', 20000, 20000, 0, 'wxPay', 0, '2024-04-06 17:14:08', '2024-04-06 17:14:15', NULL, '2024-05-06 17:14:15', NULL, '2024-04-06 17:14:14', '155800005897', '155800005897', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

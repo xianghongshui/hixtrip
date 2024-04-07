@@ -35,6 +35,8 @@ public class OrderDetail implements Serializable {
      */
     private String userId;
 
+    private String skuId;
+
     /**
      * 价格
      */

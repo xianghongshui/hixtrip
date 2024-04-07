@@ -129,6 +129,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         detail.setCreateTime(payOrder.getCreateTime());
         detail.setUpdater(payOrder.getUpdater());
         detail.setUpdateTime(payOrder.getUpdateTime());
+        detail.setSkuId(order.getSkuId());
         return detail;
     }
 
