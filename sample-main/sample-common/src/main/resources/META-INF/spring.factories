@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- com.tianji.common.autoconfigure.redisson.RedissonConfig,
+ com.hixtrip.sample.common.redisson.RedissonConfig,
 
