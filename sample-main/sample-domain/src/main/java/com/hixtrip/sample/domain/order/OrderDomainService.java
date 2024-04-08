@@ -2,6 +2,7 @@ package com.hixtrip.sample.domain.order;
 
 import com.alibaba.fastjson.JSON;
 import com.hixtrip.sample.client.sample.vo.PreOrderVO;
+import com.hixtrip.sample.common.exception.CommonException;
 import com.hixtrip.sample.domain.inventory.repository.InventoryRepository;
 import com.hixtrip.sample.domain.order.model.Order;
 import com.hixtrip.sample.domain.order.model.PayOrder;
@@ -36,11 +37,15 @@ public class OrderDomainService {
      */
     public void createOrder(Order order, PreOrderVO preOrderVO) {
         //需要你在infra实现, 自行定义出入参
+        long sellableQuantity = inventoryRepository.getSellableQuantity(order.getSkuId()).longValue();
+        //库存检测
+        if (sellableQuantity < order.getAmount().longValue()) {
+            throw new CommonException("可售库存不足!");
+        }
         Boolean result = orderRepository.createOrder(order, preOrderVO);
         //判断创建预支付订单成功则抢占缓存中的库存
         if (Boolean.TRUE.equals(result)) {
             //扣 - 可销售库存
-            long sellableQuantity = inventoryRepository.getSellableQuantity(order.getSkuId()).longValue();
             long withholdingQuantity = inventoryRepository.getWithholdingQuantity(order.getSkuId()).longValue();
             Boolean changeResult = inventoryRepository.changeInventory(order.getSkuId(),
                     sellableQuantity - order.getAmount().longValue(),

@@ -39,7 +39,13 @@ public class LockAspect {
         this.redissonClient = redissonClient;
     }
 
-    //通过环绕加锁，方法执行前加锁，方法执行后根据注解使用解锁
+    /**
+     * 通过环绕加锁，方法执行前加锁，方法执行后根据注解使用解锁
+     * @param pjp
+     * @param properties
+     * @return
+     * @throws Throwable
+     */
     @Around("@annotation(properties)")
     public Object handleLock(ProceedingJoinPoint pjp, Lock properties) throws Throwable {
         if (!properties.autoUnlock() && properties.leaseTime() <= 0) {
@@ -70,7 +76,7 @@ public class LockAspect {
     /**
      * SPEL的正则规则
      */
-    private static final Pattern pattern = Pattern.compile("\\#\\{([^\\}]*)\\}");
+    private static final Pattern PATTERN = Pattern.compile("\\#\\{([^\\}]*)\\}");
     /**
      * 方法参数解析器
      */
@@ -95,7 +101,7 @@ public class LockAspect {
         // 3.构建解析器
         ExpressionParser parser = new SpelExpressionParser();
         // 3.循环处理
-        Matcher matcher = pattern.matcher(name);
+        Matcher matcher = PATTERN.matcher(name);
         while (matcher.find()) {
             // 2.1.获取表达式
             String tmp = matcher.group();
