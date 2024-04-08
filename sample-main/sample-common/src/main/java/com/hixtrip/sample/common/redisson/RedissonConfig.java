@@ -9,6 +9,7 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -41,7 +42,7 @@ public class RedissonConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public RedissonClient redissonClient(RedisProperties properties){
+    public RedissonClient redissonClient(@Qualifier("spring.data.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties") RedisProperties properties){
         this.properties = properties;
         log.debug("尝试初始化RedissonClient");
         // 1.读取Redis配置
